@@ -1,13 +1,12 @@
 import "./App.css";
 
-import Signup from "./pages/auth/Signup";
+import MainRoutes from "./routes/MainRoutes";
 
 function App() {
   return (
-    <div className="text-3xl font-bold underline">
-      <Signup />
-    </div>
+    <MainRoutes/>
   );
 }
 
 export default App;
+
