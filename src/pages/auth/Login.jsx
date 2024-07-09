@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/Slices/AuthSlice";
+
 
 function Login() {
+  const dispatch = useDispatch();
+
+  const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+
+  function handleInputChange(e){
+      const {name, value} = e.target;
+      setLoginDetails({
+        ...loginDetails, 
+        [name]:value,
+      })
+  }
+
+  function onSubmit() {
+    if (!loginDetails.email || !loginDetails.password) return;
+    const response = dispatch(login(loginDetails));
+  }
+
   return (
     <div className="flex justify-center items-center h-[90vh]">
       <div className="card bg-primary text-primary-content w-96">
@@ -10,15 +30,19 @@ function Login() {
           </div>
           <div className="w-full">
             <input
+              onChange={handleInputChange}
+              name = "email"
               autoComplete="one-time-code"
               type="text"
-              placeholder="User id...."
+              placeholder="Email ...."
               className="input text-white input-bordered input-primary w-full max-w-xs"
             />
           </div>
 
           <div className="w-full">
             <input
+              onChange={handleInputChange}
+              name = "password"
               autoComplete="one-time-code"
               type="password"
               placeholder="Password..."
@@ -26,7 +50,9 @@ function Login() {
             />
           </div>
           <div className="card-actions w-full mt-4">
-            <button className="btn btn-warning text-2xl font-bold  w-full">Submit</button>
+            <button onClick={onSubmit} className="btn btn-warning text-2xl font-bold  w-full">
+              Submit
+            </button>
           </div>
         </div>
       </div>
